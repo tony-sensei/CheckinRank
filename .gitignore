@@ -134,3 +134,6 @@ database/db_config.py
 
 # Intellij
 .idea/
+
+# Raw data
+database/json_data/
