@@ -4,7 +4,7 @@ import db_config
 
 def run_sql_script():
     # Read SQL script
-    with open("db_creation.sql", "r") as file:
+    with open("database/db_creation.sql", "r") as file:
         sql_script = file.read()
 
     # Connect to the database

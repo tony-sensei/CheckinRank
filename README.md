@@ -38,3 +38,22 @@ pip install -r requirements.txt
 
 This command will install the Python packages listed in the requirements.txt file.
 
+### 3. Create tables in the database
+
+To create tables in the database, run the `data_import.py` script:
+
+```bash
+python database/data_import.py
+```
+
+This script will read the SQL statements from the `db_creation.sql` file and create the tables in your PostgreSQL database.
+
+### 4. Test the database
+
+To test if the tables were created correctly in the database, run the `test_db.py` script:
+
+```bash
+python database/test_db.py
+```
+
+This script will display the list of tables in the database and fetch the first 10 rows from the `reviews` table.
