@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS businessInfo(
 	id		    VARCHAR(25)	    PRIMARY KEY,
-    name		VARCHAR(100)	not null,
-    address 	VARCHAR	        default null,
-    city		VARCHAR(10)	    default null,
-    zipcode	    VARCHAR(5)	    not null,
-    latitude	numeric 	    not null,
-    longitude	numeric 	    not null
+    name		VARCHAR(100)	NOT NULL,
+    address 	VARCHAR	        DEFAULT NULL,
+    city		VARCHAR(100)	DEFAULT NULL,
+    zipcode	    VARCHAR(10)	    NOT NULL,
+    latitude	NUMERIC 	    NOT NULL,
+    longitude	NUMERIC 	    NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS category(
@@ -20,9 +20,10 @@ CREATE TABLE IF NOT EXISTS category_in_business(
 );
 
 CREATE TABLE IF NOT EXISTS checkin(
-	business_id 	VARCHAR(25)	REFERENCES businessInfo(id),
-    date 	        TIMESTAMP	NOT NULL,
-    PRIMARY KEY (business_id, date)
+    business_id VARCHAR(25) REFERENCES businessInfo(id),
+    date_hour TIMESTAMP NOT NULL,
+    checkin_count INTEGER NOT NULL,
+    PRIMARY KEY (business_id, date_hour)
 );
 
 CREATE TABLE IF NOT EXISTS review(
@@ -33,7 +34,6 @@ CREATE TABLE IF NOT EXISTS review(
 );
 
 CREATE TABLE IF NOT EXISTS population(
-	zipcode 	VARCHAR(5)	primary key,
+	zipcode 	VARCHAR(10)	PRIMARY KEY,
     population 	INTEGER	    NOT NULL
 );
-

@@ -136,4 +136,5 @@ database/db_config.py
 .idea/
 
 # Raw data
-database/json_data/
+database/json_data/*.json
+database/json_data/*.csv

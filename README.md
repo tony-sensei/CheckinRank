@@ -40,17 +40,36 @@ This command will install the Python packages listed in the requirements.txt fil
 
 ## Database Setup
 
-1. Create tables in the database
+1. Follow the instructions in `database/json_data/README.md` to download and 
+set up the required JSON and csv data files.
 
-To create tables in the database, run the `data_import.py` script:
+2. a. Create tables and insert row data to the created tables in the database
+
+To create tables and insert row data to the created tables in the database, run the `data_import.py` script:
 
 ```bash
 python database/data_import.py
 ```
 
-This script will read the SQL statements from the `db_creation.sql` file and create the tables in your PostgreSQL database.
+This script will read the SQL statements from the `db_creation.sql` file, the json and csv files 
+from database/json_data folder
+and create the tables with raw data in your PostgreSQL database.
+*Note: the process will be long*
 
-2. Test the database
+2. b. Drop tables in the databases
+
+Drops all tables in the database. **Warning: Running this script will delete all data from the database. 
+Use it with caution.**
+
+```bash
+python database/db_drop.py
+```
+
+Please note that running db_drop.py will delete all data from your database, so use it with caution 
+and only when necessary.
+
+
+3. Test the database
 
 To test if the tables were created correctly in the database, run the `test_db.py` script:
 
@@ -59,3 +78,4 @@ python database/test_db.py
 ```
 
 This script will display the list of tables in the database and fetch the first 10 rows from the `reviews` table.
+

@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, text
 import db_config
 
 # Read SQL script
-with open("db_creation.sql", "r") as file:
+with open("database/db_creation.sql", "r") as file:
     sql_script = file.read()
 
 # Connect to the database
@@ -16,7 +16,7 @@ engine = create_engine(
 
 
 def fetch_reviews():
-    query = text("SELECT * FROM reviews LIMIT 10;")
+    query = text("SELECT * FROM review LIMIT 10;")
     with engine.connect() as connection:
         result = connection.execute(query)
         for row in result:
@@ -34,4 +34,4 @@ def show_tables():
 
 if __name__ == "__main__":
     show_tables()
-    # fetch_reviews()
+    fetch_reviews()
