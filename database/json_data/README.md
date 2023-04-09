@@ -9,7 +9,7 @@ in the repository. To run the script, you need to download the following files:
 
    You can obtain the dataset by visiting the following link and accepting the terms and conditions:
 
-   https://www.yelp.com/dataset
+   https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset 
 
 2. 2010 population dataset from Kaggle:
    - population_by_zip_2010.csv
