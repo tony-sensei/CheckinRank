@@ -42,6 +42,18 @@ def insert_business_info(connection, business):
 
 def insert_category(connection, category_name):
     with connection.cursor() as cursor:
+        # Check if the category exists
+        sql = """
+        SELECT id FROM category WHERE name = %s;
+        """
+        cursor.execute(sql, (category_name,))
+        result = cursor.fetchone()
+
+        # If the category exists, return the existing ID
+        if result is not None:
+            return result[0]
+
+        # If the category does not exist, insert a new category and return the new ID
         sql = """
         INSERT INTO category (name)
         VALUES (%s)
@@ -121,7 +133,7 @@ def process_business_data(file_path):
 
                 for category_name in categories:
                     category_id = insert_category(connection, category_name.strip())
-                    insert_category_in_business(connection, business["business_id"], category_id)
+                    insert_category_in_business(connection, business['business_id'], category_id)
 
                 progress_counter += 1
 
@@ -170,7 +182,6 @@ def process_checkin_data(file_path):
 
             except Exception as e:
                 print(f"Error processing checkin business {checkin_entry['business_id']}: {e}")
-                break
 
         print(f"Finished inserting {progress_counter} businesses in total.")
 

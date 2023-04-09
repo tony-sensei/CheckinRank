@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS businessInfo(
 
 CREATE TABLE IF NOT EXISTS category(
 	id 			SERIAL		    PRIMARY KEY,
-    name 		VARCHAR(100)	NOT NULL
+    name 		VARCHAR(100)	NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS category_in_business(
