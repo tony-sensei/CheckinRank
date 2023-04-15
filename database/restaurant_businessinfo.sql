@@ -80,8 +80,16 @@ FROM RESTAURANT_BUSINESSINFO_checkin
 JOIN population
 ON RESTAURANT_BUSINESSINFO_checkin.zipcode = population.zipcode;
 
-
-
+---Create view RESTAURANT_REVIEW 
+---Filter all restaurant business reviews
+CREATE VIEW RESTAURANT_REVIEW AS
+SELECT *
+FROM review
+WHERE review.business_id IN
+	(SELECT BUSINESS_ID
+	 FROM CATEGORY_IN_BUSINESS
+	 WHERE CATEGORY_ID = 18 )
+order by review.business_id;
 
 
 
