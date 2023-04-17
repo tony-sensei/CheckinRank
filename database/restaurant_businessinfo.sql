@@ -1,5 +1,3 @@
----Create view RESTAURANT_BUSINESSINFO 
----Filter all restaurant business information
 DROP VIEW IF EXISTS RESTAURANT_BUSINESSINFO CASCADE;
 CREATE VIEW RESTAURANT_BUSINESSINFO AS
 SELECT *
@@ -9,7 +7,7 @@ WHERE BUSINESSINFO.ID IN
 			FROM CATEGORY_IN_BUSINESS
 			WHERE CATEGORY_ID = 18 );
 
----find all the restaurant checkin time range by days
+
 DROP VIEW IF EXISTS Checkin_timerange CASCADE;
 CREATE VIEW Checkin_timerange AS
 SELECT business_id, 
@@ -25,8 +23,7 @@ WHERE business_id IN
 GROUP BY business_id;
 
 
----Create view checkin_expand 
----For all the 6 periods in a day and 7 days in a week, count checkin numbers of business in these total 42(6*7) time periods
+
 DROP VIEW IF EXISTS checkin_expand CASCADE;
 CREATE VIEW checkin_expand AS
 SELECT business_id, 
@@ -89,8 +86,7 @@ GROUP BY
     business_id, range_in_days;
 
 
----Create VIEW RESTAURANT_BUSINESSINFO_checkin
----Join RESTAURANT_BUSINESSINFO and checkin_expand together by business_id
+
 DROP VIEW IF EXISTS RESTAURANT_BUSINESSINFO_checkin CASCADE;
 CREATE VIEW RESTAURANT_BUSINESSINFO_checkin AS
 SELECT *
@@ -98,18 +94,15 @@ FROM RESTAURANT_BUSINESSINFO
 JOIN checkin_expand
 ON RESTAURANT_BUSINESSINFO.id = checkin_expand.business_id;
 
----CREATE VIEW RESTAURANT_BUSINESSINFO_checkin_population
----Join RESTAURANT_BUSINESSINFO_checkin and population together by zipcode
+
 DROP VIEW IF EXISTS RESTAURANT_BUSINESSINFO_checkin_population CASCADE;
 CREATE VIEW RESTAURANT_BUSINESSINFO_checkin_population AS
 SELECT RESTAURANT_BUSINESSINFO_checkin.*, population
 FROM population
 JOIN RESTAURANT_BUSINESSINFO_checkin
 ON RESTAURANT_BUSINESSINFO_checkin.zipcode = population.zipcode;
---select * from RESTAURANT_BUSINESSINFO_checkin_population limit 100
 
----Create view RESTAURANT_REVIEW 
----Filter all restaurant business reviews
+
 DROP VIEW IF EXISTS RESTAURANT_REVIEW CASCADE;
 CREATE VIEW RESTAURANT_REVIEW AS
 SELECT *
@@ -120,8 +113,7 @@ WHERE review.business_id IN
 	 WHERE CATEGORY_ID = 18 )
 order by review.business_id;
 
----Create view AGGREGATE_RESTAURANT_REVIEW 
----aggregate all restaurant business reviews by "|||"
+
 DROP VIEW IF EXISTS AGGREGATE_RESTAURANT_REVIEW CASCADE;
 CREATE VIEW AGGREGATE_RESTAURANT_REVIEW AS
 SELECT
@@ -132,11 +124,7 @@ FROM
 GROUP BY
     business_id;
 
----select * from AGGREGATE_RESTAURANT_REVIEW limit 100
----select * from RESTAURANT_BUSINESSINFO_checkin_population limit 100
 
----Create view RESTAURANT_BUSINESSINFO_checkin_population_review 
----aggregate all restaurant business reviews and all business information together
 DROP VIEW IF EXISTS RESTAURANT_BUSINESSINFO_checkin_population_review CASCADE;
 CREATE VIEW RESTAURANT_BUSINESSINFO_checkin_population_review AS
 SELECT RESTAURANT_BUSINESSINFO_checkin_population.*, aggregated_text
@@ -144,7 +132,7 @@ FROM AGGREGATE_RESTAURANT_REVIEW
 JOIN RESTAURANT_BUSINESSINFO_checkin_population
 ON RESTAURANT_BUSINESSINFO_checkin_population.id = AGGREGATE_RESTAURANT_REVIEW.business_id;
 
----select * from RESTAURANT_BUSINESSINFO_checkin_population_review limit 100
+
 
 
 

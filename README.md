@@ -79,3 +79,16 @@ python database/test_db.py
 
 This script will display the list of tables in the database and fetch the first 10 rows from the `reviews` table.
 
+## Dataset Creation
+
+To generate the necessary datasets for the project, run the `dataset_creation.py` script:
+
+```bash
+python3 database/dataset_creation.py
+```
+
+This script will create three CSV files in the `machine_learning/data` directory:
+
+1. `main.csv`: This dataset will be used for predicting check-ins. It contains features like longitude, latitude, population, day, time, and the check-in number.
+2. `statistical.csv`: This dataset will be used for statistical analysis. It includes longitude, latitude, zipcode, population, day, time, and check-in number.
+3. `reviews.csv`: This dataset contains all the reviews and will be used for training the NLP model.
