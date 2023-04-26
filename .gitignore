@@ -144,3 +144,5 @@ database/json_data/*.csv
 
 # Large Datasets
 machine_learning/data/*.csv
+machine_learning/models/v1/*.json
+machine_learning/models/v1/*.csv
