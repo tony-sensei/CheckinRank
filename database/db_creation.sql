@@ -37,3 +37,8 @@ CREATE TABLE IF NOT EXISTS population(
 	zipcode 	VARCHAR(10)	PRIMARY KEY,
     population 	INTEGER	    NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS income(
+	zipcode 	VARCHAR(10)	PRIMARY KEY,
+    income 	    INTEGER	    NOT NULL
+);

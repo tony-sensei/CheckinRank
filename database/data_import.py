@@ -2,6 +2,7 @@ import psycopg2
 import json
 import csv
 import db_config
+import pandas as pd
 from datetime import datetime
 
 
@@ -105,6 +106,27 @@ def insert_population(connection, zipcode, population):
         population = population.population + excluded.population;
         """
         cursor.execute(sql, (zipcode, population))
+        connection.commit()
+
+
+def read_csv_and_calculate_income(file_path):
+    df = pd.read_csv(file_path, dtype={'Zip_Code': str})
+    df['weighted_income'] = df['Mean'] * df['Households']
+    aggregated_df = df.groupby('Zip_Code').agg({'weighted_income': 'sum', 'Households': 'sum'})
+    aggregated_df['income'] = aggregated_df['weighted_income'] / aggregated_df['Households']
+    print(aggregated_df.head(10))
+    return aggregated_df.reset_index()
+
+
+def insert_income(connection, zipcode, income):
+    with connection.cursor() as cursor:
+        sql = """
+        INSERT INTO income (zipcode, income)
+        VALUES (%s, %s)
+        ON CONFLICT (zipcode) DO UPDATE SET
+        income = excluded.income;
+        """
+        cursor.execute(sql, (zipcode, income))
         connection.commit()
 
 
@@ -262,6 +284,43 @@ def process_population_data(file_path):
         connection.close()
 
 
+def process_income_data(file_path):
+    with open(file_path, "r", encoding='ISO-8859-1') as csvfile:
+        connection = psycopg2.connect(
+            dbname=db_config.DB_SETTINGS["dbname"],
+            user=db_config.DB_SETTINGS["user"],
+            password=db_config.DB_SETTINGS["password"],
+            host=db_config.DB_SETTINGS["host"],
+            port=db_config.DB_SETTINGS["port"],
+        )
+
+        # allow the rest of the transactions work even if some of them caused error
+        connection.autocommit = True
+
+        income_data = read_csv_and_calculate_income(csvfile)
+
+        progress_counter = 0
+
+        for index, row in income_data.iterrows():
+            zipcode = str(row['Zip_Code'])
+
+            try:
+                income = int(row['income'])
+                insert_income(connection, zipcode, income)
+
+                progress_counter += 1
+
+                if progress_counter % 1000 == 0:
+                    print(f"{progress_counter} zipcodes processed")
+
+            except Exception as e:
+                print(f"Error processing zipcode {zipcode}: {e}")
+
+        print(f"Finished inserting {progress_counter} zipcodes in total.")
+
+        connection.close()
+
+
 def run_views_script():
     # Create the views for combining tables
     # Read SQL script
@@ -287,11 +346,14 @@ def run_views_script():
                 cursor.execute(statement)
         connection.commit()
 
+    connection.close()
+
 
 if __name__ == "__main__":
-    # run_sql_script()
+    run_sql_script()
     # process_business_data("database/json_data/yelp_academic_dataset_business.json")
     # process_checkin_data("database/json_data/yelp_academic_dataset_checkin.json")
     # process_review_data("database/json_data/yelp_academic_dataset_review.json")
     # process_population_data('database/json_data/population_by_zip_2010.csv')
-    run_views_script()
+    process_income_data('database/json_data/US_Income_Kaggle.csv')
+    # run_views_script()
