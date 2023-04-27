@@ -139,7 +139,7 @@ FROM RESTAURANT_BUSINESSINFO_checkin_population_review
 JOIN (select business_id, count(*) as review_count
 from review
 group by business_id) review_count_per_business
-ON RESTAURANT_BUSINESSINFO_checkin_population_review.id = review_count_per_business.business_id
+ON RESTAURANT_BUSINESSINFO_checkin_population_review.id = review_count_per_business.business_id;
 
 DROP VIEW IF EXISTS main_add_reviewcount_restaurantcount CASCADE;
 CREATE VIEW main_add_reviewcount_restaurantcount AS
@@ -149,14 +149,14 @@ JOIN (select zipcode, count(*) as restaurant_count
 	  from main_add_reviewcount 
 	  group by zipcode
 ) restaurant_count_per_zipcode
-ON main_add_reviewcount.zipcode = restaurant_count_per_zipcode.zipcode
+ON main_add_reviewcount.zipcode = restaurant_count_per_zipcode.zipcode;
 
 DROP VIEW IF EXISTS main_add_reviewcount_restaurantcount_income CASCADE;
 CREATE VIEW main_add_reviewcount_restaurantcount_income AS
 SELECT main_add_reviewcount_restaurantcount.*, income
 FROM main_add_reviewcount_restaurantcount
 JOIN income
-ON main_add_reviewcount_restaurantcount.zipcode = income.zipcode
+ON main_add_reviewcount_restaurantcount.zipcode = income.zipcode;
 
 
 

@@ -28,7 +28,7 @@ def main():
                            f"/{db_config.DB_SETTINGS['dbname']}")
 
     # Read the data from the view
-    query = "SELECT * FROM restaurant_businessinfo_checkin_population_review"
+    query = "SELECT * FROM main_add_reviewcount_restaurantcount_income"
     df = pd.read_sql(query, engine)
 
     # Normalize check-in numbers
@@ -53,7 +53,8 @@ def main():
     print("CSV file created: main.csv")
 
     # Create a new DataFrame to store the desired data
-    new_df = pd.DataFrame(columns=["longitude", "latitude", "zipcode", "population", "day", "time", "checkinNum"])
+    new_df = pd.DataFrame(columns=["longitude", "latitude", "zipcode", "population", "day", "time", "checkinNum",
+                                   "review_count", "restaurant_count", "income"])
 
     # Create a new list to store the desired data
     new_data = []
@@ -73,6 +74,9 @@ def main():
                 "day": day,
                 "time": time,
                 "checkinNum": checkin_num,
+                "review_count": row["review_count"],
+                "restaurant_count": row["restaurant_count"],
+                "income": row["income"]
             }
             new_data.append(new_row)
 
@@ -90,33 +94,33 @@ def main():
 
     print("CSV file created: statistical.csv")
 
-    # Create a list to store the extracted reviews
-    reviews_list = []
-
-    # Calculate the total number of rows in the DataFrame
-    total_rows = len(df)
-
-    # Iterate through the DataFrame
-    for index, row in df.iterrows():
-        # Split the aggregated_text using "|||" as the separator
-        reviews = row["aggregated_text"].split("|||")
-
-        # Add each review to the list
-        for review in reviews:
-            reviews_list.append({"review": review})
-
-        # Calculate and print the progress
-        progress_percentage = ((index + 1) / total_rows) * 100
-        if (index + 1) % 1000 == 0:
-            print(f"Processed {index + 1}/{total_rows} ({progress_percentage:.2f}%)")
-
-    # Convert the list of dictionaries to a DataFrame
-    reviews_df = pd.DataFrame(reviews_list)
-
-    # Save the DataFrame to a CSV file
-    reviews_df.to_csv("machine_learning/data/reviews.csv", index=False)
-
-    print("CSV file created: reviews.csv")
+    # # Create a list to store the extracted reviews
+    # reviews_list = []
+    #
+    # # Calculate the total number of rows in the DataFrame
+    # total_rows = len(df)
+    #
+    # # Iterate through the DataFrame
+    # for index, row in df.iterrows():
+    #     # Split the aggregated_text using "|||" as the separator
+    #     reviews = row["aggregated_text"].split("|||")
+    #
+    #     # Add each review to the list
+    #     for review in reviews:
+    #         reviews_list.append({"review": review})
+    #
+    #     # Calculate and print the progress
+    #     progress_percentage = ((index + 1) / total_rows) * 100
+    #     if (index + 1) % 1000 == 0:
+    #         print(f"Processed {index + 1}/{total_rows} ({progress_percentage:.2f}%)")
+    #
+    # # Convert the list of dictionaries to a DataFrame
+    # reviews_df = pd.DataFrame(reviews_list)
+    #
+    # # Save the DataFrame to a CSV file
+    # reviews_df.to_csv("machine_learning/data/reviews.csv", index=False)
+    #
+    # print("CSV file created: reviews.csv")
 
 
 if __name__ == "__main__":
