@@ -1,7 +1,6 @@
 # CheckinRank
 
-This project will utilize the Yelp dataset to predict the rank of passenger flows in any specific area of California 
-by zip code using machine learning methods.
+This project will utilize the Yelp dataset to predict the restaurants' wait time, food quality, environmental quality, service quality based on customer reviews using DistilBERT, and find their correlation with the restaurants' check-in number.
 
 ## Prerequisites
 
@@ -92,3 +91,9 @@ This script will create three CSV files in the `machine_learning/data` directory
 1. `main.csv`: This dataset will be used for predicting check-ins. It contains features like longitude, latitude, population, day, time, and the check-in number.
 2. `statistical.csv`: This dataset will be used for statistical analysis. It includes longitude, latitude, zipcode, population, day, time, and check-in number.
 3. `reviews.csv`: This dataset contains all the reviews and will be used for training the NLP model.
+
+
+## Feature extraction using DistilBERT
+
+To extracting the features from customer reviews, check and run the `machine_learning/reviews_training.ipynb`:
+
