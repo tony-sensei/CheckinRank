@@ -350,10 +350,10 @@ def run_views_script():
 
 
 if __name__ == "__main__":
-    # run_sql_script()
-    # process_business_data("database/json_data/yelp_academic_dataset_business.json")
-    # process_checkin_data("database/json_data/yelp_academic_dataset_checkin.json")
-    # process_review_data("database/json_data/yelp_academic_dataset_review.json")
-    # process_population_data('database/json_data/population_by_zip_2010.csv')
-    # process_income_data('database/json_data/US_Income_Kaggle.csv')
+    run_sql_script()
+    process_business_data("database/json_data/yelp_academic_dataset_business.json")
+    process_checkin_data("database/json_data/yelp_academic_dataset_checkin.json")
+    process_review_data("database/json_data/yelp_academic_dataset_review.json")
+    process_population_data('database/json_data/population_by_zip_2010.csv')
+    process_income_data('database/json_data/US_Income_Kaggle.csv')
     run_views_script()
