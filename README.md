@@ -10,8 +10,7 @@ To understand how our project works, we recommend running `demo.ipynb` and `Stat
 - `demo.ipynb`: This Jupyter notebook contains a simple demonstration of our machine learning model. It provides a 
 step-by-step guide to  how we preprocess our data, train our model, and evaluate its performance.
 
-- `Statistical model.Rmd`: This R Markdown document demonstrates our statistical modeling process. It shows how we fit 
-our data to the model, interpret the results, and draw conclusions.
+- `project.html` is the result of demo
 
 ## Prerequisites
 
