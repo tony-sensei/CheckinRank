@@ -106,5 +106,11 @@ This script will create three CSV files in the `machine_learning/data` directory
 
 ## Feature extraction using DistilBERT
 
-To extracting the features from customer reviews, check and run the `machine_learning/reviews_training.ipynb`:
+To extracting the features from customer reviews, check and run the `machine_learning/reviews_training.ipynb`.
 
+
+## Data Visualization and Conclusion
+
+The correlations between variables are demonstrated in `data_visualization` directory, as well as `Statistical model.Rmd`
+
+And we get the conclusion that there is no linear relationship between all these qualities and restaurants' check in number.
