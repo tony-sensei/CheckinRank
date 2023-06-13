@@ -1,0 +1,13 @@
+```{r}
+library(mgcv)
+
+formula <- sum_check_in ~ s(population) + s(review_count) + s(restaurant_count) +
+           s(income) + s(time_quality) + s(food_quality) +
+           s(serv_quality) + s(env_quality)
+
+model <- gam(formula, data = Final_v1)
+
+summary(model)
+
+```
+
