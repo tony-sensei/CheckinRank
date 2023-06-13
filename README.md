@@ -1,6 +1,17 @@
 # CheckinRank
 
-This project will utilize the Yelp dataset to predict the restaurants' wait time, food quality, environmental quality, service quality based on customer reviews using DistilBERT, and find their correlation with the restaurants' check-in number.
+This project will utilize the Yelp dataset to predict the restaurants' wait time, food quality, environmental quality, 
+service quality based on customer reviews using DistilBERT, and find their correlation with the restaurants' check-in number.
+
+## Demonstration
+
+To understand how our project works, we recommend running `demo.ipynb` and `Statistical model.Rmd`. 
+
+- `demo.ipynb`: This Jupyter notebook contains a simple demonstration of our machine learning model. It provides a 
+step-by-step guide to  how we preprocess our data, train our model, and evaluate its performance.
+
+- `Statistical model.Rmd`: This R Markdown document demonstrates our statistical modeling process. It shows how we fit 
+our data to the model, interpret the results, and draw conclusions.
 
 ## Prerequisites
 
