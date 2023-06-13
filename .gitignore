@@ -150,3 +150,4 @@ machine_learning/models/v2/*.json
 machine_learning/models/v2/*.csv
 machine_learning/models/v3/*.json
 machine_learning/models/v3/*.csv
+machine_learning/models/v3/*.bin
